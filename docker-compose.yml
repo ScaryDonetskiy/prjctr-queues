@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  beanstalkd:
+    image: schickling/beanstalkd:latest
+    ports:
+      - "11300:11300"
