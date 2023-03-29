@@ -5,3 +5,17 @@ services:
     image: schickling/beanstalkd:latest
     ports:
       - "11300:11300"
+
+  redis-rdb:
+    build:
+      context: .infrastructure
+      dockerfile: RedisRdb.dockerfile
+    ports:
+      - "6379:6379"
+
+  redis-aof:
+    build:
+      context: .infrastructure
+      dockerfile: RedisAof.dockerfile
+    ports:
+      - "63791:6379"

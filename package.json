@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-beanstalk": "^1.6.8"
+    "node-beanstalk": "^1.6.8",
+    "redis": "^4.6.5"
   }
 }

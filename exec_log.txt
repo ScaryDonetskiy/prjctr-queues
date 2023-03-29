@@ -1,0 +1,10 @@
+node beanstalkd_put.js  0.05s user 0.04s system 43% cpu 0.191 total
+node beanstalkd_read.js  0.05s user 0.04s system 45% cpu 0.205 total
+node redis_put.js  0.12s user 0.07s system 63% cpu 0.307 total # RDB
+node redis_read.js  0.13s user 0.07s system 9% cpu 2.186 total # RDB
+node redis_put.js  0.13s user 0.04s system 107% cpu 0.155 total # AOF
+node redis_read.js  0.13s user 0.07s system 9% cpu 2.091 total # AOF
+node redis_put_rpush.js  0.13s user 0.07s system 69% cpu 0.291 total # RDB
+node redis_read_lpop.js  0.12s user 0.07s system 69% cpu 0.285 total # RDB
+node redis_put_rpush.js  0.12s user 0.06s system 74% cpu 0.238 total # AOF
+node redis_read_lpop.js  0.12s user 0.04s system 91% cpu 0.174 total # AOF
