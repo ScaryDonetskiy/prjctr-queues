@@ -6,16 +6,107 @@ services:
     ports:
       - "11300:11300"
 
+  beanstalkd-persist:
+    image: schickling/beanstalkd:latest
+    ports:
+      - "11301:11300"
+    command: -b /tmp
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
   redis-rdb:
     build:
       context: .infrastructure
       dockerfile: RedisRdb.dockerfile
     ports:
-      - "6379:6379"
+      - "63791:6379"
 
   redis-aof:
     build:
       context: .infrastructure
       dockerfile: RedisAof.dockerfile
     ports:
-      - "63791:6379"
+      - "63792:6379"
+
+  beanstalkd-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3000:3000"
+    command: node beanstalkd.js
+    depends_on:
+      - beanstalkd
+
+  beanstalkd-persist-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3001:3000"
+    command: node beanstalkd-persist.js
+    depends_on:
+      - beanstalkd-persist
+
+  redis-pubsub-test: #
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3002:3000"
+    command: node redis_pubsub.js
+    depends_on:
+      - redis
+
+  redis-rdb-pubsub-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3003:3000"
+    command: node redis_rdb_pubsub.js
+    depends_on:
+      - redis-rdb
+
+  redis-aof-pubsub-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3004:3000"
+    command: node redis_aof_pubsub.js
+    depends_on:
+      - redis-aof
+
+  redis-rpush-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3005:3000"
+    command: node redis_rpush.js
+    depends_on:
+      - redis
+
+  redis-rdb-rpush-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3006:3000"
+    command: node redis_rdb_rpush.js
+    depends_on:
+      - redis-rdb
+
+  redis-aof-rpush-test:
+    build:
+      context: .
+      dockerfile: ./.infrastructure/Service.dockerfile
+    ports:
+      - "3007:3000"
+    command: node redis_aof_rpush.js
+    depends_on:
+      - redis-aof
